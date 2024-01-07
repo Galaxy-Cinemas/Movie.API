@@ -3,6 +3,8 @@ using Galaxi.Movie.Persistence;
 using System.Reflection;
 using MediatR;
 using Galaxi.Movie.Domain.Profiles;
+using Galaxi.Movie.Persistence.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,21 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
+ApplyMigration();
+
 app.MapControllers();
 
 app.Run();
+
+void ApplyMigration()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var _db = scope.ServiceProvider.GetRequiredService<MovieContextDb>();
+
+        if (_db.Database.GetPendingMigrations().Count() > 0)
+        {
+            _db.Database.Migrate();
+        }
+    }
+}
