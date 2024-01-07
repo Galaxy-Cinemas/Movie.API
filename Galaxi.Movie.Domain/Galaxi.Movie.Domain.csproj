@@ -8,9 +8,10 @@
 
   <ItemGroup>
     <Folder Include="EventHandlers\Commands\" />
-    <Folder Include="Queries\Dtos\" />
-    <Folder Include="Queries\" />
-    <Folder Include="Profiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Galaxi.Movie.Persistence\Galaxi.Movie.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
