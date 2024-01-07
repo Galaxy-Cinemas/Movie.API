@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Movie.API", "Galaxi.Movie.API\Galaxi.Movie.API.csproj", "{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E47B3AE4-BFB5-4367-A5A5-723DA77775FC}
+	EndGlobalSection
+EndGlobal
