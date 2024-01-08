@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Handlers
 {
-    internal class UpdateMovieHandler
+    public class UpdateMovieHandler
     {
     }
 }

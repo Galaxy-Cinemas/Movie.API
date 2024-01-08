@@ -4,37 +4,31 @@ using Galaxi.Movie.Domain.DTOs;
 using Galaxi.Movie.Domain.Infrastructure.Commands;
 
 using Galaxi.Movie.Persistence.Persistence;
+using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class CreatedMovieHandler
-       : IRequestHandler<CreatedMovieCommand, FilmCreatedDto>
+       : IRequestHandler<CreatedMovieCommand, bool>
     
     {
-        private readonly MovieContextDb _dbcontext;
+        private readonly MovieRepository _repo;
         private readonly IMapper _mapper;
 
-        public CreatedMovieHandler(MovieContextDb dbcontext, IMapper mapper)
+        public CreatedMovieHandler(MovieRepository dbcontext, IMapper mapper)
         {
-            _dbcontext = dbcontext;
+            _repo = dbcontext;
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<FilmDto>> Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            var movieViewModel = _mapper.Map<Film>(request);
 
-        Task<FilmCreatedDto> IRequestHandler<CreatedMovieCommand, FilmCreatedDto>.Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            _repo.Add(movieViewModel);
+
+            return await _repo.SaveAll();
         }
     }
 }

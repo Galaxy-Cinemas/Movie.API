@@ -14,16 +14,13 @@ var configuration = service.GetService<IConfiguration>();
 
 
 builder.Services.AddInfrastructure(configuration);
-builder.Services.AddAutoMapper(typeof(MovieDtosProfile).Assembly);
+builder.Services.AddAutoMapper(typeof(MovieProfile).Assembly);
 builder.Services.AddMediatR(Assembly.Load("Galaxi.Movie.Domain"));
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 
 
 var app = builder.Build();
