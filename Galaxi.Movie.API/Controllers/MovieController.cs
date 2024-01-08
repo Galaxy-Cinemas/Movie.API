@@ -24,9 +24,7 @@ namespace Galaxi.Movie.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var movies = await _mediator.Send(new GetAllMoviesQuery());
-            //var moviestest = await _dbcontext.Movie.ToListAsync(); //TODO
-                
+            var movies = await _mediator.Send(new GetAllMoviesQuery());    
             return Ok(movies);
         }
 
@@ -54,6 +52,19 @@ namespace Galaxi.Movie.API.Controllers
                 return Ok(updateMovie);
 
             return BadRequest();
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(DeleteMovieCommand id)
+        {
+            var delete = await _mediator.Send(id);
+
+            if (delete)
+                return Ok("removed function");
+
+            return BadRequest();
+
         }
     }
 }
