@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Galaxi.Movie.Domain.Queries.Dtos
+namespace Galaxi.Movie.Domain.DTOs
 {
-    public class GetAllMoviesQuery 
+    public class FilmDto
     {
         public int MovieId { get; set; }
         public string Title { get; set; }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Movie.API", "Galaxi.Movie.API\Galaxi.Movie.API.csproj", "{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxi.Movie.API", "Galaxi.Movie.API\Galaxi.Movie.API.csproj", "{DDD126A7-1E90-4DF4-914E-ECCDD5DFFACB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Movie.Data", "Galaxi.Movie.Data\Galaxi.Movie.Data.csproj", "{49AB08F3-56D6-493F-8A5C-04B736233BBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxi.Movie.Data", "Galaxi.Movie.Data\Galaxi.Movie.Data.csproj", "{49AB08F3-56D6-493F-8A5C-04B736233BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Movie.Domain", "Galaxi.Movie.Domain\Galaxi.Movie.Domain.csproj", "{C399B9BA-4733-4445-BFED-26BC45790B6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxi.Movie.Domain", "Galaxi.Movie.Domain\Galaxi.Movie.Domain.csproj", "{C399B9BA-4733-4445-BFED-26BC45790B6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Movie.Persistence", "Galaxi.Movie.Persistence\Galaxi.Movie.Persistence.csproj", "{A570FBC3-5F26-4D4E-940A-268AD4027F87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galaxi.Movie.Persistence", "Galaxi.Movie.Persistence\Galaxi.Movie.Persistence.csproj", "{A570FBC3-5F26-4D4E-940A-268AD4027F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Galaxi.Bus.Message", "Galaxi.Bus.Message\Galaxi.Bus.Message.csproj", "{CC815FC5-8BB8-4B95-9867-AB6B271CD4EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A570FBC3-5F26-4D4E-940A-268AD4027F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A570FBC3-5F26-4D4E-940A-268AD4027F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A570FBC3-5F26-4D4E-940A-268AD4027F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC815FC5-8BB8-4B95-9867-AB6B271CD4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC815FC5-8BB8-4B95-9867-AB6B271CD4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC815FC5-8BB8-4B95-9867-AB6B271CD4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC815FC5-8BB8-4B95-9867-AB6B271CD4EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
