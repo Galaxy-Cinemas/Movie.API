@@ -13,22 +13,23 @@ namespace Galaxi.Movie.Domain.Handlers
        : IRequestHandler<CreatedMovieCommand, bool>
     
     {
-        private readonly MovieRepository _repo;
+        private readonly IMovieRepository _repo;
         private readonly IMapper _mapper;
 
-        public CreatedMovieHandler(MovieRepository dbcontext, IMapper mapper)
+        public CreatedMovieHandler(IMovieRepository repo, IMapper mapper)
         {
-            _repo = dbcontext;
+            _repo = repo;
             _mapper = mapper;
         }
 
         public async Task<bool> Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
         {
-            var movieViewModel = _mapper.Map<Film>(request);
+            var createdMovie = _mapper.Map<Film>(request);
 
-            _repo.Add(movieViewModel);
+            _repo.Add(createdMovie);
 
             return await _repo.SaveAll();
         }
+
     }
 }

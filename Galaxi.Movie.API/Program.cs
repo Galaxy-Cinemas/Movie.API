@@ -5,6 +5,7 @@ using MediatR;
 using Galaxi.Movie.Domain.Profiles;
 using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Galaxi.Movie.Persistence.Repositorys;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,9 @@ var configuration = service.GetService<IConfiguration>();
 
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddAutoMapper(typeof(MovieProfile).Assembly);
+builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddMediatR(Assembly.Load("Galaxi.Movie.Domain"));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
