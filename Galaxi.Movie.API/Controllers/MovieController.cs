@@ -13,12 +13,10 @@ namespace Galaxi.Movie.API.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly MovieContextDb _dbcontext;
 
-        public MovieController(IMediator mediator, MovieContextDb dbcontext) 
+        public MovieController(IMediator mediator) 
         {
             _mediator = mediator;
-            _dbcontext = dbcontext;
         }
 
         [HttpGet]
@@ -46,9 +44,9 @@ namespace Galaxi.Movie.API.Controllers
                 return BadRequest();
             }
 
-            var functionToUpdate = await _mediator.Send(updateMovie);
+            var Update = await _mediator.Send(updateMovie);
 
-            if (functionToUpdate)
+            if (Update)
                 return Ok(updateMovie);
 
             return BadRequest();
