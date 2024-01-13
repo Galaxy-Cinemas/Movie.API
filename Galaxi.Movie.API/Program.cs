@@ -13,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services.BuildServiceProvider();
 var configuration = service.GetService<IConfiguration>();
 
+//var MyAllowSpecificOrigins = "_corsMovieApiOriginacion";
+
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddAutoMapper(typeof(MovieProfile).Assembly);
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
@@ -23,14 +25,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddCors(p => p.AddPolicy(MyAllowSpecificOrigins, build =>
+//{
+//    build.WithOrigins("*").WithMethods("PUT", "POST", "GET").AllowAnyHeader();
+//}));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseAuthorization();
 
