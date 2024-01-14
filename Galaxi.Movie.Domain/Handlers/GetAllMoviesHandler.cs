@@ -2,14 +2,8 @@
 using Galaxi.Movie.Domain.DTOs;
 using Galaxi.Movie.Domain.Infrastructure.Queries;
 using Galaxi.Movie.Persistence.Persistence;
-using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Handlers
 {

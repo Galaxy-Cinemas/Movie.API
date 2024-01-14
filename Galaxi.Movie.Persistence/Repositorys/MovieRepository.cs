@@ -1,12 +1,6 @@
 ﻿using Galaxi.Movie.Data.Models;
 using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Galaxi.Movie.Persistence.Repositorys
 {

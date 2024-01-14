@@ -2,11 +2,6 @@
 using Galaxi.Movie.Data.Models;
 using Galaxi.Movie.Domain.DTOs;
 using Galaxi.Movie.Domain.Infrastructure.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Profiles
 {
@@ -19,8 +14,6 @@ namespace Galaxi.Movie.Domain.Profiles
             CreateMap<CreatedMovieCommand, Film>();
 
             CreateMap<UpdateMovieCommand, Film>();
-
-            //CreateMap<CreatedMovieCommand, FilmDto>();
         }
     }
 }
