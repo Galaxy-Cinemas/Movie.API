@@ -55,17 +55,19 @@ namespace Galaxi.Movie.API.Controllers
             return BadRequest();
         }
 
-
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(DeleteMovieCommand id)
+        public async Task<IActionResult> Delete(int id, DeleteMovieCommand movieId)
         {
-            var delete = await _mediator.Send(id);
+            if (id != movieId.movieId)
+            {
+                return BadRequest();
+            }
+            var delete = await _mediator.Send(movieId);
 
             if (delete)
                 return Ok("removed function");
 
             return BadRequest();
-
         }
     }
 }
