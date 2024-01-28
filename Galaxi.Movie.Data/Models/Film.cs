@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Galaxi.Movie.Data.Models
+﻿namespace Galaxi.Movie.Data.Models
 {
     public class Film
     {

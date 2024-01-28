@@ -1,12 +1,9 @@
-﻿
-using Galaxi.Movie.Domain.Infrastructure.Commands;
+﻿using Galaxi.Movie.Domain.Infrastructure.Commands;
 using Galaxi.Movie.Domain.Infrastructure.Queries;
-using Galaxi.Movie.Persistence.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Galaxi.Movie.API.Controllers
 {
