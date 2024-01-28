@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxi.Movie.API.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("v1/[controller]/[action]")]
     [ApiController]
     public class MovieController : ControllerBase
