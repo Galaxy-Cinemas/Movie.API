@@ -7,16 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxi.Movie.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("v1/[controller]/[action]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILogger<MovieController> _log;
 
-        public MovieController(IMediator mediator) 
+        public MovieController(ILogger<MovieController> log, IMediator mediator) 
         {
             _mediator = mediator;
+            _log = log;
         }
 
         [HttpGet]
@@ -24,6 +26,23 @@ namespace Galaxi.Movie.API.Controllers
         {
             var movies = await _mediator.Send(new GetAllMoviesQuery());    
             return Ok(movies);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            try
+            {
+                GetMovieByIdQuery movieById = new GetMovieByIdQuery(movieId: id);
+
+                _log.LogInformation("Get movie {0}", id);
+                var movie = await _mediator.Send(movieById);
+                return Ok(movie);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
