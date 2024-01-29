@@ -51,14 +51,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 //    build.WithOrigins("*").WithMethods("PUT", "POST", "GET").AllowAnyHeader();
 //}));
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("CorsPolicy",
+//        builder => builder.WithOrigins(new[]
+//        {
+//                        "http://localhost:4200",
+//                        "http://localhost:50928"
+//        })
+//        .AllowAnyMethod()
+//        .AllowAnyHeader()
+//        .AllowCredentials());
+//});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins(new[]
-        {
-                        "http://localhost:4200",
-                        "http://localhost:50928"
-        })
+        builder => builder.WithOrigins("*")
         .AllowAnyMethod()
         .AllowAnyHeader()
         .AllowCredentials());
@@ -69,9 +78,9 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("CorsPolicy");
 
 ApplyMigration();
 
