@@ -80,7 +80,7 @@ namespace Galaxi.Movie.API.Controllers
             var delete = await _mediator.Send(movieId);
 
             if (delete)
-                return Ok("removed function");
+                return Ok();
 
             return BadRequest();
         }
