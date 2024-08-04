@@ -27,9 +27,9 @@ namespace Galaxi.Movie.Persistence.Repositorys
             _context.Update(entity);
         }
 
-        public async Task<Film> GetMovieById(int id)
+        public async Task<Film> GetMovieById(Guid id)
         {
-            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.MovieId == id);
+            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.FilmId == id);
             return movie;
         }
 

@@ -5,17 +5,11 @@ using Galaxi.Movie.Domain.Infrastructure.Queries;
 using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class GetMovieByIdHandler
-         : IRequestHandler<GetMovieByIdQuery, FilmDto>
+         : IRequestHandler<GetMovieByIdQuery, Film_DetailsDto>
     {
         private readonly IMovieRepository _repo;
         private readonly IMapper _mapper;
@@ -27,12 +21,12 @@ namespace Galaxi.Movie.Domain.Handlers
             _log = log;
         }
 
-        public async Task<FilmDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Film_DetailsDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                Film movieById = await _repo.GetMovieById(request.movieId);
-                var movieByIdViewModel = _mapper.Map<FilmDto>(movieById);
+                Film movieById = await _repo.GetMovieById(request.filmId);
+                var movieByIdViewModel = _mapper.Map<Film_DetailsDto>(movieById);
                 return movieByIdViewModel;
             }
             catch (Exception ex)

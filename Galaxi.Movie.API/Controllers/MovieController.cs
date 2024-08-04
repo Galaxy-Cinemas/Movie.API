@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxi.Movie.API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("v1/[controller]/[action]")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Route("[action]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
@@ -25,19 +25,27 @@ namespace Galaxi.Movie.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var Test = HttpContext.Request.Headers["Authorizarion"];
-            var movies = await _mediator.Send(new GetAllMoviesQuery());    
+            var movies = await _mediator.Send(new GetAllMoviesQuery()); 
+            return Ok(movies);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllMoviesBillboard()
+        {
+            var movies = await _mediator.Send(new GetAllMoviesQuery());
             return Ok(movies);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
-                GetMovieByIdQuery movieById = new GetMovieByIdQuery(movieId: id);
+                GetMovieByIdQuery filmById = new GetMovieByIdQuery(filmId: id);
 
                 _log.LogInformation("Get movie {0}", id);
-                var movie = await _mediator.Send(movieById);
+                
+                var movie = await _mediator.Send(filmById);
                 return Ok(movie);
             }
             catch (Exception ex)
@@ -57,9 +65,9 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UpdateMovieCommand updateMovie)
+        public async Task<IActionResult> Update(Guid id, UpdateMovieCommand updateMovie)
         {
-            if (id != updateMovie.MovieId)
+            if (id != updateMovie.FilmId)
             {
                 return BadRequest();
             }
@@ -73,11 +81,11 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            DeleteMovieCommand movieId = new DeleteMovieCommand(movieId: id);
+            DeleteMovieCommand FilmId = new DeleteMovieCommand(FilmId: id);
             
-            var delete = await _mediator.Send(movieId);
+            var delete = await _mediator.Send(FilmId);
 
             if (delete)
                 return Ok();

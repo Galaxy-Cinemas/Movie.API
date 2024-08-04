@@ -9,10 +9,9 @@ namespace Galaxi.Movie.Domain.Profiles
     {
         public MovieProfile()
         {
-            CreateMap<Film, FilmDto>();
-
+            CreateMap<Film, Film_DetailsDto>();
+            CreateMap<Film, FilmSummaryDto>();
             CreateMap<CreatedMovieCommand, Film>();
-
             CreateMap<UpdateMovieCommand, Film>();
         }
     }
