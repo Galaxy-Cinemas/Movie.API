@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class GetMovieByIdHandler
-         : IRequestHandler<GetMovieByIdQuery, Film_DetailsDto>
+         : IRequestHandler<GetMovieByIdQuery, FilmDetailsDto>
     {
         private readonly IMovieRepository _repo;
         private readonly IMapper _mapper;
@@ -21,12 +21,12 @@ namespace Galaxi.Movie.Domain.Handlers
             _log = log;
         }
 
-        public async Task<Film_DetailsDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
+        public async Task<FilmDetailsDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
             try
             {
                 Film movieById = await _repo.GetMovieById(request.filmId);
-                var movieByIdViewModel = _mapper.Map<Film_DetailsDto>(movieById);
+                var movieByIdViewModel = _mapper.Map<FilmDetailsDto>(movieById);
                 return movieByIdViewModel;
             }
             catch (Exception ex)

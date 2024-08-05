@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.DTOs
 {
-    public class Film_DetailsDto
+    public class FilmDetailsDto
     {
         public Guid filmId { get; set; }
         public string? PosterImage { get; set; }
@@ -18,5 +18,6 @@ namespace Galaxi.Movie.Domain.DTOs
         public string? Cast { get; set; }
         public string? Origincountry { get; set; }
         public string? Language { get; set; }
+        public string? classification { get; set; }
     }
 }

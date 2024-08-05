@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Galaxi.Movie.API.Controllers
 {
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    [Route("[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
@@ -29,7 +29,7 @@ namespace Galaxi.Movie.API.Controllers
             return Ok(movies);
         }
 
-        [HttpGet]
+        [HttpGet("Billboard")]
         public async Task<IActionResult> GetAllMoviesBillboard()
         {
             var movies = await _mediator.Send(new GetAllMoviesQuery());

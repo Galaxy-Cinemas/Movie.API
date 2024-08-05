@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Infrastructure.Queries
 {
-    public record GetMovieByIdQuery(Guid filmId) : IRequest<Film_DetailsDto>;
+    public record GetMovieByIdQuery(Guid filmId) : IRequest<FilmDetailsDto>;
     
 }

@@ -15,7 +15,7 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<bool> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
         {
-            var function = await _repo.GetMovieById(request.movieId);
+            var function = await _repo.GetMovieById(request.FilmId);
             _repo.Delete(function);
             return await _repo.SaveAll();
         }
