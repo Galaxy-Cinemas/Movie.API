@@ -24,7 +24,6 @@ namespace Galaxi.Movie.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var Test = HttpContext.Request.Headers["Authorizarion"];
             var movies = await _mediator.Send(new GetAllMoviesQuery()); 
             return Ok(movies);
         }
@@ -84,13 +83,20 @@ namespace Galaxi.Movie.API.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             DeleteMovieCommand FilmId = new DeleteMovieCommand(FilmId: id);
-            
-            var delete = await _mediator.Send(FilmId);
-
-            if (delete)
+            try
+            {
+                var delete = await _mediator.Send(FilmId);
                 return Ok();
+            }
+            catch (DirectoryNotFoundException ex)
+            {
+                return NotFound(ex.Message);
 
-            return BadRequest();
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
