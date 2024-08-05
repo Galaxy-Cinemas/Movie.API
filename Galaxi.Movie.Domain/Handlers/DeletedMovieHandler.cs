@@ -1,12 +1,6 @@
-﻿using AutoMapper;
-using Galaxi.Movie.Domain.Infrastructure.Commands;
+﻿using Galaxi.Movie.Domain.Infrastructure.Commands;
 using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Handlers
 {
@@ -21,7 +15,7 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<bool> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
         {
-            var function = await _repo.GetMovieById(request.movieId);
+            var function = await _repo.GetMovieById(request.FilmId);
             _repo.Delete(function);
             return await _repo.SaveAll();
         }

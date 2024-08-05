@@ -4,6 +4,7 @@ using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galaxi.Movie.Persistence.Migrations
 {
     [DbContext(typeof(MovieContextDb))]
-    partial class MovieContextDbModelSnapshot : ModelSnapshot
+    [Migration("20240804214739_updateEnums")]
+    partial class updateEnums
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,8 +40,8 @@ namespace Galaxi.Movie.Persistence.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Director")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
                     b.Property<string>("Genre")
                         .HasMaxLength(100)
@@ -66,6 +69,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("duration")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("FilmId");
@@ -75,7 +79,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            FilmId = new Guid("f63a6702-af52-4f0a-8bce-aa84cf86b180"),
+                            FilmId = new Guid("335fe6f1-fd20-4bf6-97ce-47c7ba51d46f"),
                             Cast = "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
                             Description = "A thief who steals corporate secrets through the use of dream-sharing technology.",
                             Director = "Christopher Nolan",
@@ -89,7 +93,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("8d3885cd-9840-4b14-893b-89a280e92833"),
+                            FilmId = new Guid("f2b5f6f1-1562-4d32-90c7-a1551bd64265"),
                             Cast = "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
                             Description = "A poor family schemes to become employed by a wealthy family.",
                             Director = "Bong Joon-ho",
@@ -103,7 +107,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("84af8500-2591-40b4-aa26-6247dcd574d1"),
+                            FilmId = new Guid("d7d0587c-2125-408c-8c17-9a04b28c15c9"),
                             Cast = "Marlon Brando, Al Pacino, James Caan",
                             Description = "The aging patriarch of an organized crime dynasty transfers control to his reluctant son.",
                             Director = "Francis Ford Coppola",
@@ -117,7 +121,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("f97c04eb-38cd-4540-995a-e0f90a2ef5f2"),
+                            FilmId = new Guid("e033037f-f006-4423-ad19-f338fd60adcd"),
                             Cast = "Audrey Tautou, Mathieu Kassovitz, Rufus",
                             Description = "Amélie is an innocent and naive girl in Paris with her own sense of justice.",
                             Director = "Jean-Pierre Jeunet",
@@ -131,7 +135,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("a6276a11-dadf-46f7-b513-de1bff52d11d"),
+                            FilmId = new Guid("c8bd6cc4-0be1-4921-b2fa-831e0197ec29"),
                             Cast = "John Travolta, Uma Thurman, Samuel L. Jackson",
                             Description = "The lives of two mob hitmen, a boxer, and a pair of bandits intertwine in four tales of violence.",
                             Director = "Quentin Tarantino",
@@ -145,7 +149,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("0680bd74-b6fb-4ca6-9878-f676c7d51936"),
+                            FilmId = new Guid("005c30a9-e3ea-49af-8f72-a335c11488d1"),
                             Cast = "Anthony Gonzalez, Gael García Bernal, Benjamin Bratt",
                             Description = "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead.",
                             Director = "Lee Unkrich",
@@ -159,7 +163,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("182cdb5d-9ed2-400b-922c-f9e0521dde3e"),
+                            FilmId = new Guid("f486d6ed-b405-426f-8ab3-25f424ac9f58"),
                             Cast = "Christian Bale, Heath Ledger, Aaron Eckhart",
                             Description = "Batman begins his fight against crime in Gotham.",
                             Director = "Christopher Nolan",
@@ -173,7 +177,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("b77dacc2-d72d-4258-a8ad-01e97f4ad219"),
+                            FilmId = new Guid("4b4a0167-9ad1-438b-9982-59415943cc50"),
                             Cast = "Rumi Hiiragi, Miyu Irino, Mari Natsuki",
                             Description = "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits.",
                             Director = "Hayao Miyazaki",
@@ -187,7 +191,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("8291ffb2-6747-470a-865f-dac56801e01c"),
+                            FilmId = new Guid("d93a8915-155a-4eb9-88c3-6573567a6a9c"),
                             Cast = "Ivana Baquero, Ariadna Gil, Sergi López",
                             Description = "In the falangist Spain of 1944, the bookish young stepdaughter of a sadistic army officer escapes into an eerie but captivating fantasy world.",
                             Director = "Guillermo del Toro",
@@ -201,7 +205,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                         },
                         new
                         {
-                            FilmId = new Guid("3b8f4f14-b7cb-4d54-805a-ed7358c0858f"),
+                            FilmId = new Guid("1e963cde-fe0c-4448-b541-b81ec5fe04ec"),
                             Cast = "Liam Neeson, Ralph Fiennes, Ben Kingsley",
                             Description = "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce.",
                             Director = "Steven Spielberg",

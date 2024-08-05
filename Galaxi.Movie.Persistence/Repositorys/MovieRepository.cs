@@ -1,12 +1,6 @@
 ﻿using Galaxi.Movie.Data.Models;
 using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Galaxi.Movie.Persistence.Repositorys
 {
@@ -33,9 +27,9 @@ namespace Galaxi.Movie.Persistence.Repositorys
             _context.Update(entity);
         }
 
-        public async Task<Film> GetMovieById(int id)
+        public async Task<Film> GetMovieById(Guid id)
         {
-            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.MovieId == id);
+            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.FilmId == id);
             return movie;
         }
 

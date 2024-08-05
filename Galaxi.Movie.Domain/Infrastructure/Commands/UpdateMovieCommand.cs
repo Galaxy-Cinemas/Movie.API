@@ -1,13 +1,21 @@
-﻿using Galaxi.Movie.Domain.DTOs;
+﻿using Galaxi.Movie.Data.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Galaxi.Movie.Domain.Infrastructure.Commands
 {
-    public record UpdateMovieCommand (int MovieId, string Title, string Description, string Author, string Genre, string cast, string PosterImage)
+    public record UpdateMovieCommand 
+        (
+             Guid FilmId,
+             string Title,
+             string Description,
+             string PosterImage,
+             string Director,
+             string Genre,
+             string Cast,
+             string Origincountry,
+             Language Language,
+             classification classification,
+             int duration
+        )
         : IRequest<bool>;
 }

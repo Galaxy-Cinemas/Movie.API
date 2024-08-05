@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Galaxi.Movie.Data.Models;
-using Galaxi.Movie.Domain.DTOs;
 using Galaxi.Movie.Domain.Infrastructure.Commands;
-
-using Galaxi.Movie.Persistence.Persistence;
 using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
 
