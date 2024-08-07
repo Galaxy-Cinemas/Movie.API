@@ -7,7 +7,7 @@ using MediatR;
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class CreatedMovieHandler
-       : IRequestHandler<CreatedMovieCommand, bool>
+       : IRequestHandler<CreatedMovieCommand, Unit>
     
     {
         private readonly IMovieRepository _repo;
@@ -19,13 +19,17 @@ namespace Galaxi.Movie.Domain.Handlers
             _mapper = mapper;
         }
 
-        public async Task<bool> Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreatedMovieCommand request, CancellationToken cancellationToken)
         {
             var createdMovie = _mapper.Map<Film>(request);
-
             _repo.Add(createdMovie);
+            var sucess = await _repo.SaveAll();
 
-            return await _repo.SaveAll();
+            if (!sucess)
+            {
+                throw new InvalidOperationException("Failed to save changes to the database.");
+            }
+            return Unit.Value;
         }
 
     }
