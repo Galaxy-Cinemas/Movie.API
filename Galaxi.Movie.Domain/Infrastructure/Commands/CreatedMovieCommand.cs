@@ -16,5 +16,5 @@ namespace Galaxi.Movie.Domain.Infrastructure.Commands
              classification classification,
              int? duration
         )
-        : IRequest<bool>;
+        : IRequest<Unit>;
 }

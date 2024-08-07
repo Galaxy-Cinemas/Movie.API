@@ -15,18 +15,18 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<Unit> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
         {
-            var function = await _repo.GetMovieById(request.FilmId);
-            if (function == null)
+            var existingMovie = await _repo.GetMovieById(request.FilmId);
+            if (existingMovie == null)
             {
-                throw new DirectoryNotFoundException($"Movie with ID {request.FilmId} not found.");
-                
+                throw new DirectoryNotFoundException($"Movie not found.");   
             }
 
-            _repo.Delete(function);
+            _repo.Delete(existingMovie);
             var sucess = await _repo.SaveAll();
-            if (sucess)
+
+            if (!sucess)
             {
-                throw new Exception("Failed to save changes.");
+                throw new InvalidOperationException("Failed to save changes to the database.");
             }
 
             return Unit.Value;
