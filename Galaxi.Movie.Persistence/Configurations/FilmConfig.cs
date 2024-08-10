@@ -20,6 +20,7 @@ namespace Galaxi.Movie.Persistence.Configurations
                 .HasMaxLength(60);
 
             builder.Property(f => f.Description)
+                .IsRequired()
                 .HasMaxLength(500);
 
             builder.Property(f => f.PosterImage)

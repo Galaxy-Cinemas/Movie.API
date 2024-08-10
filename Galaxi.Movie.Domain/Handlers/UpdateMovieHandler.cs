@@ -22,7 +22,7 @@ namespace Galaxi.Movie.Domain.Handlers
             var existingMovie = await _repo.GetMovieById(request.FilmId);
             if (existingMovie == null)
             {
-                throw new KeyNotFoundException($"Movie not found.");
+                throw new KeyNotFoundException();
             }
 
             _mapper.Map(request, existingMovie);
@@ -31,7 +31,7 @@ namespace Galaxi.Movie.Domain.Handlers
             var sucess = await _repo.SaveAll();
             if (!sucess)
             {
-                throw new InvalidOperationException("Failed to save changes to the database.");
+                throw new InvalidOperationException();
             }
             
             return Unit.Value;

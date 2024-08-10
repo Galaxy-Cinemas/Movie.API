@@ -19,9 +19,13 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<IEnumerable<FilmSummaryDto>> Handle(GetAllMoviesQuery request, CancellationToken cancellationToken)
         {
-            var movie = await _context.Movie.ToListAsync(cancellationToken);
+            var movies = await _context.Movie.ToListAsync(cancellationToken);
+            if (movies == null || !movies.Any()) 
+            {
+                throw new KeyNotFoundException();
+            }
 
-            var movieViewModel = _mapper.Map<List<FilmSummaryDto>>(movie);
+                var movieViewModel = _mapper.Map<List<FilmSummaryDto>>(movies);
 
             return movieViewModel;
         }

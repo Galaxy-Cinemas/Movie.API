@@ -1,6 +1,8 @@
 ﻿using Galaxi.Movie.Data.Models;
+using Galaxi.Movie.Domain.DTOs;
 using Galaxi.Movie.Domain.Infrastructure.Commands;
 using Galaxi.Movie.Domain.Infrastructure.Queries;
+using Galaxi.Movie.Domain.Response;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +18,7 @@ namespace Galaxi.Movie.API.Controllers
         private readonly IMediator _mediator;
         private readonly ILogger<MovieController> _log;
 
-        public MovieController(ILogger<MovieController> log, IMediator mediator) 
+        public MovieController(ILogger<MovieController> log, IMediator mediator)
         {
             _mediator = mediator;
             _log = log;
@@ -28,25 +30,20 @@ namespace Galaxi.Movie.API.Controllers
             try
             {
                 var movies = await _mediator.Send(new GetAllMoviesQuery());
-
-                if (movies == null || !movies.Any())
-                {
-                    return NotFound("No movies found.");
-                }
-
-                return Ok(movies);
+                var successResponse = ResponseHandler<IEnumerable<FilmSummaryDto>>.CreateSuccessResponse("Movie retrieved successfully", movies);
+                return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest();
+                var response = ResponseHandler<string>.CreateNotFoundResponse("Movies not found.", ex.Message);
+                return StatusCode(response.StatusCode.Value, response);
             }
-        }
-
-        [HttpGet("Billboard")]
-        public async Task<IActionResult> GetAllMoviesBillboard()
-        {
-            var movies = await _mediator.Send(new GetAllMoviesQuery());
-            return Ok(movies);
+            catch (Exception ex)
+            {
+                _log.LogInformation(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
+            }
         }
 
         [HttpGet("{filmId}")]
@@ -55,37 +52,53 @@ namespace Galaxi.Movie.API.Controllers
             try
             {
                 var movie = await _mediator.Send(new GetMovieByIdQuery(filmId));
-                if (movie == null)
-                {
-                    return NotFound("No movies found.");
-                }
 
-                return Ok(movie);
+                var successResponse = ResponseHandler<FilmDetailsDto>.CreateSuccessResponse("Movie created successfully", movie);
+                return StatusCode(successResponse.StatusCode.Value, successResponse);
+            }
+            catch (InvalidOperationException ex)
+            {
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("Failed to save changes to the database.", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
             catch (Exception ex)
             {
-                _log.LogInformation(ex.Message, filmId);
-                return BadRequest();
+                _log.LogInformation(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreatedMovieCommand movieToCreate)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("Validation failed", errors);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
+            }
             try
             {
                 await _mediator.Send(movieToCreate);
-                return Ok(movieToCreate);
+                var successResponse = ResponseHandler<CreatedMovieCommand>.CreateSuccessResponse("Movie created successfully", movieToCreate);
+                return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("Failed to save changes to the database.", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
-                
-            }           
+                _log.LogInformation(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
+            }
         }
 
         [HttpPut("{id}")]
@@ -93,24 +106,31 @@ namespace Galaxi.Movie.API.Controllers
         {
             if (id != updateMovie.FilmId)
             {
-                return BadRequest("The movie ID does not match the film ID.");
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred",new List<string> {"The movie ID does not match the film ID." });
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
             try
             {
                 var Update = await _mediator.Send(updateMovie);
-                return Ok(updateMovie);
+
+                var successResponse = ResponseHandler<UpdateMovieCommand>.CreateSuccessResponse("Movie updated successfully", updateMovie);
+                return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                var response = ResponseHandler<string>.CreateNotFoundResponse("Movie not found.", "The movie with the specified ID does not exist.");
+                return StatusCode(response.StatusCode.Value, response);
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("Failed to save changes to the database.", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                _log.LogInformation(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
         }
 
@@ -121,19 +141,24 @@ namespace Galaxi.Movie.API.Controllers
             try
             {
                 var delete = await _mediator.Send(FilmId);
-                return Ok();
+                var successResponse = ResponseHandler<string>.CreateSuccessResponse("Movie deleted successfully", null);
+                return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
-            catch (DirectoryNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound(ex.Message);
+                var response = ResponseHandler<string>.CreateNotFoundResponse("Movie not found.", "The movie with the specified ID does not exist.");
+                return StatusCode(response.StatusCode.Value, response);
             }
             catch (InvalidOperationException ex)
             {
-                return NotFound(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("Failed to save changes to the database.", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
-            catch (Exception ex) 
-            { 
-                return BadRequest(ex.Message);
+            catch (Exception ex)
+            {
+                _log.LogInformation(ex.Message);
+                var errorResponse = ResponseHandler<string>.CreateErrorResponse("An internal server error occurred", ex);
+                return StatusCode(errorResponse.StatusCode.Value, errorResponse);
             }
         }
     }

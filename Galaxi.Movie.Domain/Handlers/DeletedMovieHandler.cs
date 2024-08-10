@@ -18,7 +18,7 @@ namespace Galaxi.Movie.Domain.Handlers
             var existingMovie = await _repo.GetMovieById(request.FilmId);
             if (existingMovie == null)
             {
-                throw new DirectoryNotFoundException($"Movie not found.");   
+                throw new KeyNotFoundException();   
             }
 
             _repo.Delete(existingMovie);
@@ -26,7 +26,7 @@ namespace Galaxi.Movie.Domain.Handlers
 
             if (!sucess)
             {
-                throw new InvalidOperationException("Failed to save changes to the database.");
+                throw new InvalidOperationException();
             }
 
             return Unit.Value;
