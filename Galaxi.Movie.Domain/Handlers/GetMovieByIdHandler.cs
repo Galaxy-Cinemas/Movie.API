@@ -26,6 +26,10 @@ namespace Galaxi.Movie.Domain.Handlers
             try
             {
                 Film movieById = await _repo.GetMovieById(request.filmId);
+                if (movieById == null)
+                {
+                    throw new KeyNotFoundException();
+                }
                 var movieByIdViewModel = _mapper.Map<FilmDetailsDto>(movieById);
                 return movieByIdViewModel;
             }

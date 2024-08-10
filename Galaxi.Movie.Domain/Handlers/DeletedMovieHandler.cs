@@ -18,7 +18,7 @@ namespace Galaxi.Movie.Domain.Handlers
             var existingMovie = await _repo.GetMovieById(request.FilmId);
             if (existingMovie == null)
             {
-                throw new DirectoryNotFoundException();   
+                throw new KeyNotFoundException();   
             }
 
             _repo.Delete(existingMovie);

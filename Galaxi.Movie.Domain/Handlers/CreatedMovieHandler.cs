@@ -27,7 +27,7 @@ namespace Galaxi.Movie.Domain.Handlers
 
             if (!sucess)
             {
-                throw new InvalidOperationException("Failed to save changes to the database.");
+                throw new InvalidOperationException();
             }
             return Unit.Value;
         }
