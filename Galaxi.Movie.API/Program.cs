@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Galaxi.Movie.Persistence;
 using System.Reflection;
 using MediatR;
@@ -9,6 +8,12 @@ using Galaxi.Movie.Persistence.Repositorys;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Serilog;
+using Serilog.Events;
+using Serilog.Extensions.Logging;
+using Serilog.Sinks.Elasticsearch;
+using Serilog.Formatting.Elasticsearch;
+//using Elastic.Serilog.Sinks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,35 @@ var service = builder.Services.BuildServiceProvider();
 var configuration = service.GetService<IConfiguration>();
 
 //var MyAllowSpecificOrigins = "_corsMovieApiOriginacion";
+
+builder.Services.AddLogging(logginBuilder =>
+{
+    //1. Create Config
+    var loggerConfig = new LoggerConfiguration()
+                           .MinimumLevel.Debug()
+                           .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                           .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                           .WriteTo.File
+                           (
+                                path: "C:/samba/logs/logs-movie-Serilog-.json",
+                                formatter: new Serilog.Formatting.Json.JsonFormatter(),
+                                rollingInterval: RollingInterval.Day
+                           )
+                           .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200/"))
+                           {
+                               AutoRegisterTemplate = true,
+                               IndexFormat = "logs-movie",
+                               CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true)
+                           });
+
+    //2. Create Logger
+    var logger = loggerConfig.CreateLogger();
+
+    //3. Inject Service
+    logginBuilder.Services.AddSingleton<ILoggerFactory>(
+        provider => new SerilogLoggerFactory(logger, dispose: false));
+
+});
 
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddAutoMapper(typeof(MovieProfile).Assembly);
@@ -70,7 +104,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("*")
         .AllowAnyMethod()
         .AllowAnyHeader());
-        //.AllowCredentials());
+    //.AllowCredentials());
 });
 
 var app = builder.Build();
