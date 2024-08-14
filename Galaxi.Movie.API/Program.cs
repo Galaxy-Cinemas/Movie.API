@@ -39,7 +39,7 @@ builder.Services.AddLogging(logginBuilder =>
                            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200/"))
                            {
                                AutoRegisterTemplate = true,
-                               IndexFormat = "logs-movie-{0:yyyy.MM.dd}",
+                               IndexFormat = "logs-movie",
                                CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true)
                            });
 
