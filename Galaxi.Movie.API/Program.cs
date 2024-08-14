@@ -9,6 +9,8 @@ using Galaxi.Movie.Persistence.Repositorys;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NLog.Web;
+using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 var service = builder.Services.BuildServiceProvider();
 var configuration = service.GetService<IConfiguration>();
 
-//var MyAllowSpecificOrigins = "_corsMovieApiOriginacion";
+builder.Logging.ClearProviders();
+builder.Host.UseNLog();
 
 builder.Services.AddInfrastructure(configuration);
 builder.Services.AddAutoMapper(typeof(MovieProfile).Assembly);
