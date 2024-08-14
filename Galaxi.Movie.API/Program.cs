@@ -23,31 +23,32 @@ var configuration = service.GetService<IConfiguration>();
 
 //var MyAllowSpecificOrigins = "_corsMovieApiOriginacion";
 
-builder.Services.AddLogging(logginBuilder => 
+builder.Services.AddLogging(logginBuilder =>
 {
     //1. Create Config
     var loggerConfig = new LoggerConfiguration()
                            .MinimumLevel.Debug()
                            .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                           .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Information)
-                           .WriteTo.File(
-                                    path: "C:/samba/logs/logs-movie-Serilog-${shortdate}.json",
-                                    outputTemplate:"{Timestamp:HH:mm:ss} {Level:u3} - {Message} {Properties} {NewLine}"
-                                    )
+                           .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+                           .WriteTo.File
+                           (
+                                path: "C:/samba/logs/logs-movie-Serilog-.json",
+                                formatter: new Serilog.Formatting.Json.JsonFormatter(),
+                                rollingInterval: RollingInterval.Day
+                           )
                            .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri("http://localhost:9200/"))
                            {
                                AutoRegisterTemplate = true,
-                               IndexFormat = "logs-movie",
+                               IndexFormat = "logs-movie-{0:yyyy.MM.dd}",
                                CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true)
                            });
-    ;
 
     //2. Create Logger
     var logger = loggerConfig.CreateLogger();
 
     //3. Inject Service
     logginBuilder.Services.AddSingleton<ILoggerFactory>(
-        provider => new SerilogLoggerFactory(logger, dispose :false));
+        provider => new SerilogLoggerFactory(logger, dispose: false));
 
 });
 
@@ -103,7 +104,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("*")
         .AllowAnyMethod()
         .AllowAnyHeader());
-        //.AllowCredentials());
+    //.AllowCredentials());
 });
 
 var app = builder.Build();
