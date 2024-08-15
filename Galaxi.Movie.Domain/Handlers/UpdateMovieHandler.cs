@@ -19,7 +19,7 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<Unit> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
         {
-            var existingMovie = await _repo.GetMovieById(request.FilmId);
+            var existingMovie = await _repo.GetMovieByIdAsync(request.FilmId);
             if (existingMovie == null)
             {
                 throw new KeyNotFoundException();

@@ -13,6 +13,7 @@ using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Formatting.Elasticsearch;
+using StackExchange.Redis;
 //using Elastic.Serilog.Sinks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -50,6 +51,11 @@ builder.Services.AddLogging(logginBuilder =>
     logginBuilder.Services.AddSingleton<ILoggerFactory>(
         provider => new SerilogLoggerFactory(logger, dispose: false));
 
+});
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
 });
 
 builder.Services.AddInfrastructure(configuration);
