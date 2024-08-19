@@ -15,13 +15,13 @@ namespace Galaxi.Movie.Domain.Handlers
         }
         public async Task<Unit> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
         {
-            var existingMovie = await _repo.GetMovieById(request.FilmId);
+            var existingMovie = await _repo.GetMovieByIdAsync(request.FilmId);
             if (existingMovie == null)
             {
                 throw new KeyNotFoundException();   
             }
 
-            _repo.Delete(existingMovie);
+            await _repo.Delete(existingMovie);
             var sucess = await _repo.SaveAll();
 
             if (!sucess)

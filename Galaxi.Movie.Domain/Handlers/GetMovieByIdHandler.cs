@@ -23,21 +23,14 @@ namespace Galaxi.Movie.Domain.Handlers
 
         public async Task<FilmDetailsDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
-            try
+
+            Film movieById = await _repo.GetMovieByIdAsync(request.filmId);
+            if (movieById == null)
             {
-                Film movieById = await _repo.GetMovieById(request.filmId);
-                if (movieById == null)
-                {
-                    throw new KeyNotFoundException();
-                }
-                var movieByIdViewModel = _mapper.Map<FilmDetailsDto>(movieById);
-                return movieByIdViewModel;
+                throw new KeyNotFoundException();
             }
-            catch (Exception ex)
-            {
-                _log.LogError("An exception has occurred getting the movie{0}", ex.Message);
-                throw;
-            }
+            var movieByIdViewModel = _mapper.Map<FilmDetailsDto>(movieById);
+            return movieByIdViewModel;
         }
     }
 }
