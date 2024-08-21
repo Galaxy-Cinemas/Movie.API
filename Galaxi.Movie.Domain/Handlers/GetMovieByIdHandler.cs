@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class GetMovieByIdHandler
-         : IRequestHandler<GetMovieByIdQuery, FilmDetailsDto>
+         : IRequestHandler<GetMovieByIdQuery, FilmDetailsDTO>
     {
         private readonly IMovieRepository _repo;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace Galaxi.Movie.Domain.Handlers
             _log = log;
         }
 
-        public async Task<FilmDetailsDto> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
+        public async Task<FilmDetailsDTO> Handle(GetMovieByIdQuery request, CancellationToken cancellationToken)
         {
 
             Film movieById = await _repo.GetMovieByIdAsync(request.filmId);
@@ -29,7 +29,7 @@ namespace Galaxi.Movie.Domain.Handlers
             {
                 throw new KeyNotFoundException();
             }
-            var movieByIdViewModel = _mapper.Map<FilmDetailsDto>(movieById);
+            var movieByIdViewModel = _mapper.Map<FilmDetailsDTO>(movieById);
             return movieByIdViewModel;
         }
     }

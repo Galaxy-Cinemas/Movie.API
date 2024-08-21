@@ -14,7 +14,7 @@ namespace Galaxi.Movie.Persistence.Repositorys
         private readonly IDistributedCache _cache;
         private readonly ILogger<MovieRepository> _log;
         private readonly TimeSpan _cacheExpiration = TimeSpan.FromMinutes(10);
-        private readonly string _cacheKeyAllMovies = "movies_all";
+        private const string _cacheKeyAllMovies = "movies_all";
 
         public MovieRepository(MovieContextDb context, IDistributedCache cache, ILogger<MovieRepository> log)
         {

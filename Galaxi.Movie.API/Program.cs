@@ -13,8 +13,6 @@ using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Formatting.Elasticsearch;
-using StackExchange.Redis;
-//using Elastic.Serilog.Sinks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -64,9 +62,17 @@ builder.Services.AddScoped<IMovieRepository, MovieRepository>();
 builder.Services.AddMediatR(Assembly.Load("Galaxi.Movie.Domain"));
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy",
+        builder => builder.WithOrigins("*")
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 
 // Add Authentication
 var secretKey = Encoding.ASCII.GetBytes(
@@ -86,32 +92,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-//builder.Services.AddCors(p => p.AddPolicy(MyAllowSpecificOrigins, build =>
-//{
-//    build.WithOrigins("*").WithMethods("PUT", "POST", "GET").AllowAnyHeader();
-//}));
-
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("CorsPolicy",
-//        builder => builder.WithOrigins(new[]
-//        {
-//                        "http://localhost:4200",
-//                        "http://localhost:50928"
-//        })
-//        .AllowAnyMethod()
-//        .AllowAnyHeader()
-//        .AllowCredentials());
-//});
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("*")
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-    //.AllowCredentials());
-});
 
 var app = builder.Build();
 
