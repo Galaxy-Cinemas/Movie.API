@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Galaxi.Movie.API.Controllers
 {
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -24,13 +24,14 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             try
             {
                 _log.LogDebug("RequestStart - [GET] /movies");
                 var movies = await _mediator.Send(new GetAllMoviesQuery());
-                var successResponse = ResponseHandler<IEnumerable<FilmSummaryDto>>.CreateSuccessResponse("Movie retrieved successfully", movies);
+                var successResponse = ResponseHandler<IEnumerable<FilmSummaryDTO>>.CreateSuccessResponse("Movie retrieved successfully", movies);
                 _log.LogInformation("Movie retrieved successfully Info");
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
@@ -49,14 +50,15 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpGet("{filmId}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid filmId)
         {
             try
             {
                 _log.LogDebug("Processing movie with Id: {filmId}", filmId);
                 var movie = await _mediator.Send(new GetMovieByIdQuery(filmId));
-                var successResponse = ResponseHandler<FilmDetailsDto>.CreateSuccessResponse("Movie created successfully", movie);
-                _log.LogInformation("Successfully processed MovieCreated event for MovieId: {MovieId}", movie.filmId);
+                var successResponse = ResponseHandler<FilmDetailsDTO>.CreateSuccessResponse("Movie created successfully", movie);
+                _log.LogInformation("Successfully processed MovieCreated event for MovieId: {MovieId}", movie.FilmId);
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (InvalidOperationException ex)
@@ -90,8 +92,8 @@ namespace Galaxi.Movie.API.Controllers
             try
             {
                 _log.LogDebug("The creation of the movie is starting.");
-                await _mediator.Send(movieToCreate);
-                var successResponse = ResponseHandler<CreatedMovieCommand>.CreateSuccessResponse("Movie created successfully", movieToCreate);
+                var filmId = await _mediator.Send(movieToCreate);
+                var successResponse = ResponseHandler<CreatedFilmReponseDTO>.CreateSuccessResponse("Movie created successfully", filmId);
                 _log.LogInformation("Successfully processed MovieCreated event for Movie: {Movie}", movieToCreate.Title);
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }

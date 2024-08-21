@@ -1,4 +1,5 @@
 ﻿using Galaxi.Movie.Data.Models;
+using Galaxi.Movie.Domain.DTOs;
 using MediatR;
 
 namespace Galaxi.Movie.Domain.Infrastructure.Commands
@@ -16,5 +17,5 @@ namespace Galaxi.Movie.Domain.Infrastructure.Commands
              classification classification,
              int? duration
         )
-        : IRequest<Unit>;
+        : IRequest<CreatedFilmReponseDTO>;
 }
