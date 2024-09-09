@@ -58,7 +58,7 @@ namespace Galaxi.Movie.API.Controllers
                 _log.LogDebug("Processing movie with Id: {filmId}", filmId);
                 var movie = await _mediator.Send(new GetMovieByIdQuery(filmId));
                 var successResponse = ResponseHandler<FilmDetailsDTO>.CreateSuccessResponse("Movie created successfully", movie);
-                _log.LogInformation("Successfully processed MovieCreated event for MovieId: {MovieId}", movie.FilmId);
+                _log.LogInformation($"Successfully processed MovieCreated event for MovieId: {movie.FilmId}");
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (InvalidOperationException ex)
@@ -94,7 +94,7 @@ namespace Galaxi.Movie.API.Controllers
                 _log.LogDebug("The creation of the movie is starting.");
                 var filmId = await _mediator.Send(movieToCreate);
                 var successResponse = ResponseHandler<CreatedFilmReponseDTO>.CreateSuccessResponse("Movie created successfully", filmId);
-                _log.LogInformation("Successfully processed MovieCreated event for Movie: {Movie}", movieToCreate.Title);
+                _log.LogInformation($"Successfully processed MovieCreated event for Movie: {movieToCreate.Title}");
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (InvalidOperationException ex)
@@ -124,7 +124,7 @@ namespace Galaxi.Movie.API.Controllers
                 _log.LogDebug("The update of the movie is starting.");
                 var Update = await _mediator.Send(updateMovie);
                 var successResponse = ResponseHandler<UpdateMovieCommand>.CreateSuccessResponse("Movie updated successfully", updateMovie);
-                _log.LogInformation("Successfully processed update event for Movie: {Movie}", updateMovie.Title);
+                _log.LogInformation($"Successfully processed update event for Movie: {updateMovie.Title}");
                 return StatusCode(successResponse.StatusCode.Value, successResponse);
             }
             catch (KeyNotFoundException ex)

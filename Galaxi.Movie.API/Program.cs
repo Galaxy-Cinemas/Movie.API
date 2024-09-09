@@ -2,7 +2,6 @@ using Galaxi.Movie.Persistence;
 using System.Reflection;
 using MediatR;
 using Galaxi.Movie.Domain.Profiles;
-using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Galaxi.Movie.Persistence.Repositorys;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,8 +10,6 @@ using System.Text;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
-using Serilog.Sinks.Elasticsearch;
-using Serilog.Formatting.Elasticsearch;
 using MassTransit;
 using Galaxi.Movie.Domain.IntegrationEvents.Consumers;
 
@@ -37,12 +34,7 @@ builder.Services.AddLogging(logginBuilder =>
                                 formatter: new Serilog.Formatting.Json.JsonFormatter(),
                                 rollingInterval: RollingInterval.Day
                            )
-                           .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(builder.Configuration.GetConnectionString("ElasticSearchConnection")))
-                           {
-                               AutoRegisterTemplate = true,
-                               IndexFormat = "logs-movie",
-                               CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true)
-                           });
+                          .WriteTo.Http(builder.Configuration.GetConnectionString("LogStash"), null);
 
     //2. Create Logger
     var logger = loggerConfig.CreateLogger();
