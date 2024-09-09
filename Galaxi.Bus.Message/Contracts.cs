@@ -12,4 +12,14 @@
         public int NumSeat { get; init; }
         public string Email { get; init; }
     }
+
+    public record CheckAvailableMovie
+    {
+        public Guid MovieId { get; init; }
+    }
+
+    public record MovieStatus
+    {
+        public bool Exist { get; init; }
+    }
 }

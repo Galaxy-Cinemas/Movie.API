@@ -13,6 +13,8 @@ using Serilog.Events;
 using Serilog.Extensions.Logging;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Formatting.Elasticsearch;
+using MassTransit;
+using Galaxi.Movie.Domain.IntegrationEvents.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,6 +51,18 @@ builder.Services.AddLogging(logginBuilder =>
     logginBuilder.Services.AddSingleton<ILoggerFactory>(
         provider => new SerilogLoggerFactory(logger, dispose: false));
 
+});
+
+builder.Services.AddMassTransit(x =>
+{
+    x.AddConsumer<CheckAvailableMovieConsumer>();
+
+    x.UsingAzureServiceBus((context, cfg) =>
+    {
+        cfg.Host(configuration.GetConnectionString("AzureServiceBus"));
+
+        cfg.ConfigureEndpoints(context);
+    });
 });
 
 builder.Services.AddStackExchangeRedisCache(options =>
