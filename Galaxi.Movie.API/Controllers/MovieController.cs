@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Galaxi.Movie.API.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "Admin")]
-    [Route("[controller]")]
+    [Route("[action]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace Galaxi.Movie.API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllMovies()
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Galaxi.Movie.API.Controllers
 
         [HttpGet("{filmId}")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetById(Guid filmId)
+        public async Task<IActionResult> GetByMovieId(Guid filmId)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatedMovieCommand movieToCreate)
+        public async Task<IActionResult> CreateMovie([FromBody] CreatedMovieCommand movieToCreate)
         {
             if (!ModelState.IsValid)
             {
@@ -112,7 +112,7 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateMovieCommand updateMovie)
+        public async Task<IActionResult> UpdateMovie(Guid id, [FromBody] UpdateMovieCommand updateMovie)
         {
             if (id != updateMovie.FilmId)
             {
@@ -148,7 +148,7 @@ namespace Galaxi.Movie.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteMovie(Guid id)
         {
             DeleteMovieCommand FilmId = new DeleteMovieCommand(FilmId: id);
             try
