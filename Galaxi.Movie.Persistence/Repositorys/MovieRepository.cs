@@ -144,5 +144,11 @@ namespace Galaxi.Movie.Persistence.Repositorys
                 _log.LogWarning($"An unexpected error occurred when removing cache for movie {filmId}", ex);
             }
         }
+
+        public async Task MigrateAsync()
+        {
+            await _context.Database.MigrateAsync();
+        }
+
     }
 }

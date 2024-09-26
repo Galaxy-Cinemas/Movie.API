@@ -98,7 +98,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-
 var app = builder.Build();
 
 app.UseSwagger();
@@ -108,21 +107,7 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 
-//ApplyMigration();
-
 app.MapControllers();
 
 app.Run();
 
-//void ApplyMigration()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var _db = scope.ServiceProvider.GetRequiredService<MovieContextDb>();
-
-//        if (_db.Database.GetPendingMigrations().Count() > 0)
-//        {
-//            _db.Database.Migrate();
-//        }
-//    }
-//}
