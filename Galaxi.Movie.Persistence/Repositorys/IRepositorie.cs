@@ -8,5 +8,6 @@ namespace Galaxi.Movie.Persistence.Repositorys
         Task Delete(Film movie);
         Task Update(Film movie);
         Task<bool> SaveAll();
+        Task MigrateAsync();
     }
 }

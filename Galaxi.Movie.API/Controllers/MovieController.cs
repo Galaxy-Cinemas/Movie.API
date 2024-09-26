@@ -2,6 +2,7 @@
 using Galaxi.Movie.Domain.Infrastructure.Commands;
 using Galaxi.Movie.Domain.Infrastructure.Queries;
 using Galaxi.Movie.Domain.Response;
+using Galaxi.Movie.Persistence.Repositorys;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +16,23 @@ namespace Galaxi.Movie.API.Controllers
     public class MovieController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMovieRepository _repo;
         private readonly ILogger<MovieController> _log;
 
-        public MovieController(ILogger<MovieController> log, IMediator mediator)
+        public MovieController(IMovieRepository repo,ILogger<MovieController> log, IMediator mediator)
         {
             _mediator = mediator;
+            _repo = repo;
             _log = log;
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> migrate()
+        {
+            await _repo.MigrateAsync();
+            var successResponse = ResponseHandler<string>.CreateSuccessResponse("DB has been migrated successfully", null);
+            return StatusCode(successResponse.StatusCode.Value, successResponse);
         }
 
         [HttpGet]
