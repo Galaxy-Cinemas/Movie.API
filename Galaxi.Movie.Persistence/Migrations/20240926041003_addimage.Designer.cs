@@ -4,6 +4,7 @@ using Galaxi.Movie.Persistence.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Galaxi.Movie.Persistence.Migrations
 {
     [DbContext(typeof(MovieContextDb))]
-    partial class MovieContextDbModelSnapshot : ModelSnapshot
+    [Migration("20240926041003_addimage")]
+    partial class addimage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,9 +65,6 @@ namespace Galaxi.Movie.Persistence.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.Property<string>("Trailer")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("classification")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -79,7 +79,7 @@ namespace Galaxi.Movie.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            FilmId = new Guid("b10b662a-2ae0-42d5-aae7-5209b6e76e7c"),
+                            FilmId = new Guid("38a77cb7-1188-4030-bba3-07c8e2157d1b"),
                             Cast = "Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page",
                             Description = "A thief who steals corporate secrets through the use of dream-sharing technology.",
                             Director = "Christopher Nolan",
@@ -88,13 +88,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/43/9a/1c/439a1c4583a953c26b63d08a1d832f53.jpg",
                             Title = "Inception",
-                            Trailer = "https://www.youtube.com/embed/YoHD9XEInc0?si=FOzAaTEzqc0YA6sK",
                             classification = "B",
                             duration = 148
                         },
                         new
                         {
-                            FilmId = new Guid("689e687e-d7e2-4b85-82c7-5a0f67f2803d"),
+                            FilmId = new Guid("0020a7da-22cb-44ac-ae4a-b46747683ef4"),
                             Cast = "Song Kang-ho, Lee Sun-kyun, Cho Yeo-jeong",
                             Description = "A poor family schemes to become employed by a wealthy family.",
                             Director = "Bong Joon-ho",
@@ -103,13 +102,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "South Korea",
                             PosterImage = "https://i.pinimg.com/564x/a9/7d/26/a97d26449214bb756c75b4ed88d7b06e.jpg",
                             Title = "Parasite",
-                            Trailer = "https://www.youtube.com/embed/5xH0HfJHsaY?si=uqPRQpiUUcnkOmgw",
                             classification = "B15",
                             duration = 132
                         },
                         new
                         {
-                            FilmId = new Guid("b5d198e3-be36-4ec9-b3f6-73efd7f3d921"),
+                            FilmId = new Guid("46d71754-8612-4e53-bda5-aad242ca633a"),
                             Cast = "Marlon Brando, Al Pacino, James Caan",
                             Description = "The aging patriarch of an organized crime dynasty transfers control to his reluctant son.",
                             Director = "Francis Ford Coppola",
@@ -118,13 +116,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/1d/fa/6c/1dfa6ce2aca118aeddd66249d425c575.jpg",
                             Title = "The Godfather",
-                            Trailer = "https://www.youtube.com/embed/UaVTIH8mujA?si=YCmw9CNpLsz-8jqw",
                             classification = "B15",
                             duration = 175
                         },
                         new
                         {
-                            FilmId = new Guid("89ba1499-f8bb-4e60-91de-cd8a66bed0d8"),
+                            FilmId = new Guid("2a062749-99de-4390-a140-1feafcc682dc"),
                             Cast = "Audrey Tautou, Mathieu Kassovitz, Rufus",
                             Description = "Amélie is an innocent and naive girl in Paris with her own sense of justice.",
                             Director = "Jean-Pierre Jeunet",
@@ -133,13 +130,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "France",
                             PosterImage = "https://i.pinimg.com/564x/d8/9e/ac/d89eac7350c0c7d61b8ca8b22863c398.jpg",
                             Title = "Amélie",
-                            Trailer = "https://www.youtube.com/embed/Py7cDXQae2U?si=1EKFakxcxr0AyumX",
                             classification = "AA",
                             duration = 122
                         },
                         new
                         {
-                            FilmId = new Guid("444770a0-0bf1-4397-8ef8-436e5fd479ee"),
+                            FilmId = new Guid("22c49b34-d7ae-477e-9685-4a77f58de2e8"),
                             Cast = "John Travolta, Uma Thurman, Samuel L. Jackson",
                             Description = "The lives of two mob hitmen, a boxer, and a pair of bandits intertwine in four tales of violence.",
                             Director = "Quentin Tarantino",
@@ -148,13 +144,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/e4/05/0b/e4050b92335cde4a3b5ae340fc8c5ee3.jpg",
                             Title = "Pulp Fiction",
-                            Trailer = "https://www.youtube.com/embed/tGpTpVyI_OQ?si=cyNza1EHuoMQq8DM",
                             classification = "C",
                             duration = 154
                         },
                         new
                         {
-                            FilmId = new Guid("3322382a-b848-4d38-bd1f-7703f30d2f2b"),
+                            FilmId = new Guid("2c019fb3-bf0d-41b8-8d68-15e3e8c0d97d"),
                             Cast = "Anthony Gonzalez, Gael García Bernal, Benjamin Bratt",
                             Description = "Aspiring musician Miguel, confronted with his family's ancestral ban on music, enters the Land of the Dead.",
                             Director = "Lee Unkrich",
@@ -163,13 +158,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/7a/6d/c4/7a6dc4222a7bd3037d9f7146314e3bc7.jpg",
                             Title = "Coco",
-                            Trailer = "https://www.youtube.com/embed/awzWdtCezDo?si=UnEw3ZYXDm6Nl2ER",
                             classification = "AA",
                             duration = 105
                         },
                         new
                         {
-                            FilmId = new Guid("cb57f558-fccc-4419-9b30-125903a5a8cd"),
+                            FilmId = new Guid("be645d21-cd92-444c-9b6b-d1757dc6ad18"),
                             Cast = "Christian Bale, Heath Ledger, Aaron Eckhart",
                             Description = "Batman begins his fight against crime in Gotham.",
                             Director = "Christopher Nolan",
@@ -178,13 +172,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/ea/a2/6e/eaa26e2c3bfa234c3cdd3c4d9fabad35.jpg",
                             Title = "The Dark Knight",
-                            Trailer = "https://www.youtube.com/embed/EXeTwQWrcwY?si=H-7BhelqVXKIAmTb",
                             classification = "B",
                             duration = 152
                         },
                         new
                         {
-                            FilmId = new Guid("0b5148f0-07d4-4f4b-97b2-a0ea46a40781"),
+                            FilmId = new Guid("bd3e052f-fc64-4004-8c06-53cb256eb1f9"),
                             Cast = "Rumi Hiiragi, Miyu Irino, Mari Natsuki",
                             Description = "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits.",
                             Director = "Hayao Miyazaki",
@@ -193,13 +186,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "Japan",
                             PosterImage = "https://i.pinimg.com/736x/93/6b/c2/936bc2c8a46385dddd69ecaa1fe1d2d5.jpg",
                             Title = "Spirited Away",
-                            Trailer = "https://www.youtube.com/embed/ByXuk9QqQkk?si=Q1sCfN5g2wRvZPU4",
                             classification = "A",
                             duration = 125
                         },
                         new
                         {
-                            FilmId = new Guid("02b826f2-8dfb-4c15-ae59-b9176f00e5ad"),
+                            FilmId = new Guid("a5f837cd-e598-44eb-bbe0-d87c9494ac5c"),
                             Cast = "Ivana Baquero, Ariadna Gil, Sergi López",
                             Description = "In the falangist Spain of 1944, the bookish young stepdaughter of a sadistic army officer escapes into an eerie but captivating fantasy world.",
                             Director = "Guillermo del Toro",
@@ -208,13 +200,12 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "Spain",
                             PosterImage = "https://i.pinimg.com/564x/0d/e1/d9/0de1d966d8bc5bd1867a7572fa87651f.jpg",
                             Title = "Pan's Labyrinth",
-                            Trailer = "https://www.youtube.com/embed/jVZRnnVSQ8k?si=dCJTObQtyk62LIwd",
                             classification = "B15",
                             duration = 118
                         },
                         new
                         {
-                            FilmId = new Guid("158671d2-8375-4c41-ab05-2279a91832b6"),
+                            FilmId = new Guid("ff464041-d0fd-4b06-9616-34e08071d5e3"),
                             Cast = "Liam Neeson, Ralph Fiennes, Ben Kingsley",
                             Description = "In German-occupied Poland during World War II, industrialist Oskar Schindler gradually becomes concerned for his Jewish workforce.",
                             Director = "Steven Spielberg",
@@ -223,7 +214,6 @@ namespace Galaxi.Movie.Persistence.Migrations
                             Origincountry = "USA",
                             PosterImage = "https://i.pinimg.com/564x/58/7a/2a/587a2a1dbb33437d4c48811e020c4ec8.jpg",
                             Title = "Schindler's List",
-                            Trailer = "https://www.youtube.com/embed/mxphAlJID9U?si=14XT-lhGvOhmsl06",
                             classification = "C",
                             duration = 195
                         });

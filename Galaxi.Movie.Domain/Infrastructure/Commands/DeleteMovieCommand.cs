@@ -2,7 +2,7 @@
 
 namespace Galaxi.Movie.Domain.Infrastructure.Commands
 {
-    public record DeleteMovieCommand(int movieId) 
-        : IRequest<bool>;
+    public record DeleteMovieCommand(Guid FilmId) 
+        : IRequest<Unit>;
     
 }

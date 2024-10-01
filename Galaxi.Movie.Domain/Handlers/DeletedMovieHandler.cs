@@ -5,7 +5,7 @@ using MediatR;
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class DeletedMovieHandler
-        : IRequestHandler<DeleteMovieCommand, bool>
+        : IRequestHandler<DeleteMovieCommand, Unit>
     {
         private readonly IMovieRepository _repo;
 
@@ -13,11 +13,23 @@ namespace Galaxi.Movie.Domain.Handlers
         {
             _repo = repo;
         }
-        public async Task<bool> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteMovieCommand request, CancellationToken cancellationToken)
         {
-            var function = await _repo.GetMovieById(request.movieId);
-            _repo.Delete(function);
-            return await _repo.SaveAll();
+            var existingMovie = await _repo.GetMovieByIdAsync(request.FilmId);
+            if (existingMovie == null)
+            {
+                throw new KeyNotFoundException();   
+            }
+
+            await _repo.Delete(existingMovie);
+            var sucess = await _repo.SaveAll();
+
+            if (!sucess)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return Unit.Value;
         }
     }
 }

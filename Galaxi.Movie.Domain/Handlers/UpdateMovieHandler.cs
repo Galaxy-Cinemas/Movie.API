@@ -7,7 +7,7 @@ using MediatR;
 namespace Galaxi.Movie.Domain.Handlers
 {
     public class UpdateMovieHandler
-        : IRequestHandler<UpdateMovieCommand, bool>
+        : IRequestHandler<UpdateMovieCommand, Unit>
     {
         private readonly IMovieRepository _repo;
         private readonly IMapper _mapper;
@@ -17,13 +17,24 @@ namespace Galaxi.Movie.Domain.Handlers
             _repo = repo;
             _mapper = mapper;
         }
-        public async Task<bool> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateMovieCommand request, CancellationToken cancellationToken)
         {
-            var updateMovie = _mapper.Map<Film>(request);
+            var existingMovie = await _repo.GetMovieByIdAsync(request.FilmId);
+            if (existingMovie == null)
+            {
+                throw new KeyNotFoundException();
+            }
 
-            _repo.Update(updateMovie);
+            _mapper.Map(request, existingMovie);
+            _repo.Update(existingMovie);
 
-            return await _repo.SaveAll();
+            var sucess = await _repo.SaveAll();
+            if (!sucess)
+            {
+                throw new InvalidOperationException();
+            }
+            
+            return Unit.Value;
         }
     }
 }

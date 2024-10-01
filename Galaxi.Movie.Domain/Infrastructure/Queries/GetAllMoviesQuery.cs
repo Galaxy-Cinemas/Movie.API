@@ -3,5 +3,5 @@ using MediatR;
 
 namespace Galaxi.Movie.Domain.Infrastructure.Queries
 {
-    public record GetAllMoviesQuery : IRequest<IEnumerable<FilmDto>>;
+    public record GetAllMoviesQuery : IRequest<IEnumerable<FilmSummaryDTO>>;
 }

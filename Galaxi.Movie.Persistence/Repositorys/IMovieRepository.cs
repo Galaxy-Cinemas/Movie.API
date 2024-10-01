@@ -2,13 +2,9 @@
 
 namespace Galaxi.Movie.Persistence.Repositorys
 {
-    public interface IMovieRepository
+    public interface IMovieRepository : IRepository
     {
-        void Add<T>(T entity) where T : class;
-        void Delete<T>(T entity) where T : class;
-        Task<IEnumerable<Film>> GetMovieAsync();
-        Task<Film> GetMovieById(int id);
-        Task<bool> SaveAll();
-        void Update<T>(T entity) where T : class;
+        Task<IEnumerable<Film>> GetAllMoviesAsync();
+        Task<Film> GetMovieByIdAsync(Guid id);
     }
 }
