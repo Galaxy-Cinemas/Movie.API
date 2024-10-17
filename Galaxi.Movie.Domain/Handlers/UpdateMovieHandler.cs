@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Galaxi.Bus.Message;
-using Galaxi.Movie.Data.Models;
 using Galaxi.Movie.Domain.Infrastructure.Commands;
 using Galaxi.Movie.Persistence.Repositorys;
 using MassTransit;
