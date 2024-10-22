@@ -16,6 +16,18 @@ namespace Galaxi.Movie.Persistence.Repositorys
             _log = log;
         }
 
+        public async Task<IEnumerable<Film>> GetAllMoviesAsync()
+        {
+            var movies = await _context.Movie.ToListAsync();
+            return movies;
+        }
+
+        public async Task<Film> GetMovieByIdAsync(Guid id)
+        {
+            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.FilmId == id);
+            return movie;
+        }
+
         public async Task Add(Film movie)
         {
             _context.Add(movie);
@@ -29,18 +41,6 @@ namespace Galaxi.Movie.Persistence.Repositorys
         public async Task Update(Film movie)
         {
             _context.Update(movie);
-        }
-
-        public async Task<Film> GetMovieByIdAsync(Guid id)
-        {
-            var movie = await _context.Movie.FirstOrDefaultAsync(u => u.FilmId == id);
-            return movie;
-        }
-
-        public async Task<IEnumerable<Film>> GetAllMoviesAsync()
-        {
-            var movies = await _context.Movie.ToListAsync();
-            return movies;
         }
 
         public async Task<bool> SaveAll()
