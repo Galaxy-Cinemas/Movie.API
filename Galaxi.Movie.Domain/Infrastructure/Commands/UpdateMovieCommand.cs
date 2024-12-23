@@ -7,15 +7,16 @@ namespace Galaxi.Movie.Domain.Infrastructure.Commands
         (
              Guid FilmId,
              string Title,
-             string Description,
-             string PosterImage,
-             string Director,
-             string Genre,
-             string Cast,
-             string Origincountry,
+             string? Description,
+             string? PosterImage,
+             string? Trailer,
+             string? Director,
+             string? Genre,
+             string? Cast,
+             string? Origincountry,
              Language Language,
              classification classification,
-             int duration
+             int? duration
         )
         : IRequest<Unit>;
 }

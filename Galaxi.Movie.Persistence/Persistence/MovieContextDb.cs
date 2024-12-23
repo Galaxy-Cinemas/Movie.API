@@ -23,13 +23,11 @@ namespace Galaxi.Movie.Persistence.Persistence
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
         {
             var result = await base.SaveChangesAsync(cancellationToken);
-
             return result;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             base.OnModelCreating(modelBuilder);
         }
     }
