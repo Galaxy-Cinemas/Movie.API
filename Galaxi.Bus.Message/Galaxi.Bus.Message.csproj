@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Galaxi.Movie.Data\Galaxi.Movie.Data.csproj" />
+  </ItemGroup>
+
 </Project>

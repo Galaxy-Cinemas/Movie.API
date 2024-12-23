@@ -9,6 +9,7 @@ namespace Galaxi.Movie.Domain.Infrastructure.Commands
              string Title,
              string? Description,
              string? PosterImage,
+             string? Trailer,
              string? Director,
              string? Genre,
              string? Cast,
